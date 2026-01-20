@@ -44,7 +44,7 @@ def start_checkin():
             else:
                 print("❌ 签到可能失败，请检查日志")
                 # 这里可以让 GitHub Action 报错，方便你收到邮件通知
-                # sys.exit(1) 
+                sys.exit(1)
                 
         except json.JSONDecodeError:
             print("❌ 返回的不是 JSON 数据:", response.text)

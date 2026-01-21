@@ -1,0 +1,33 @@
+name: 百度网盘自动领券
+
+on:
+  workflow_dispatch: # 允许手动点击运行
+  schedule:
+    # 北京时间每天上午 9:00 运行 (UTC时间 1:00)
+    # 你可以根据需要修改 cron 表达式
+    - cron: '0 1 * * *'
+
+jobs:
+  run-script:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install requests
+
+      - name: Run Baidu Script
+        env:
+          # 从 GitHub Secrets 中读取 Cookie
+          BAIDU_COOKIE: ${{ secrets.BAIDU_COOKIE }}
+        run: |
+          python BaiduNetdisk.py

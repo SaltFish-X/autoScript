@@ -1,4 +1,4 @@
-name: 百度网盘自动领券
+name: Run Baidu Script
 
 on:
   workflow_dispatch: # 允许手动点击运行
@@ -30,4 +30,4 @@ jobs:
           # 从 GitHub Secrets 中读取 Cookie
           BAIDU_COOKIE: ${{ secrets.BAIDU_COOKIE }}
         run: |
-          python BaiduNetdisk.py
+          python -u BaiduNetdisk.py

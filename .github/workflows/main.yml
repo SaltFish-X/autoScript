@@ -1,14 +1,11 @@
 name: Run AI Check-in
 
 on:
-  # 1. 定时触发
+  # 1. 定时触发：北京时间每天凌晨 00:30 运行 (UTC 16:30)
   schedule:
-    # 这里的时区是 UTC。
-    # 北京时间 08:00 = UTC 00:00
-    # 格式：分 时 日 月 周
     - cron: '30 16 * * *'
   
-  # 2. 手动触发 (方便测试)
+  # 2. 手动触发 (方便在 GitHub 界面点击 Run workflow 测试)
   workflow_dispatch:
 
 jobs:
@@ -35,7 +32,7 @@ jobs:
       # 运行脚本
       - name: Run Sign-in Script
         env:
-          # 将 GitHub Secrets 注入到环境变量中，让 Python 脚本读取
-          GEMAI_COOKIE: ${{ secrets.GEMAI_COOKIE }}
-          GEMAI_USER: ${{ secrets.GEMAI_USER }}
+          # 注意：这里改成了与 Python 脚本中一致的变量名
+          GEMAI_USERNAME: ${{ secrets.GEMAI_USERNAME }}
+          GEMAI_PASSWORD: ${{ secrets.GEMAI_PASSWORD }}
         run: python main.py
